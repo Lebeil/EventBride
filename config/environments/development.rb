@@ -62,22 +62,17 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 
-  ActionMailer::Base.smtp_settings = {
-      :user_name => ENV['SENDGRID_LOGIN'],
-      :password => ENV['SENDGRID_PWD'],
-      :domain => 'https://event75-bride-rails.herokuapp.com/',
-      :address => 'smtp.sendgrid.net',
-      :port => 587,
-      :authentication => :plain,
-      :enable_starttls_auto => true
-  }
-  # ActionMailer Config
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default_url_options = {:host => "localhost"}
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_options = { from: 'liedel@yopmail.com' }
-  # Send email in development mode.
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.perform_caching = false
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['SENDGRID_LOGIN'],
+    :password => ENV['SENDGRID_PWD'],
+    :domain => 'https://event75-bride-rails.herokuapp.com/',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
 end
