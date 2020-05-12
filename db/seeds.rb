@@ -5,26 +5,61 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
 require 'faker'
 
-# Sets the locale to "France":
-Faker::Config.locale = 'fr'
+cities = %w[Paris Bordeaux Lyon Lisbonne Madrid Annecy]
 
-# Détruire la base actuelle
-Event.destroy_all
 User.destroy_all
+Event.destroy_all
+Participation.destroy_all
 
-# Remettre les compteurs à 0
-ActiveRecord::Base.connection.tables.each do |t|
-  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+users = []
+events = []
+
+# Create Default Admin User
+users << User.create!(
+    first_name: "John",
+    last_name: "Doe",
+    email: "juliobento2@yopmail.com",
+    description: Faker::Lorem.paragraph(sentence_count: 1)[0],
+    password: '1234567'
+)
+puts "Default Admin user has been created"
+
+10.times do |i|
+  users << User.create!(
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: "#{Faker::Name.first_name}@yopmail.com",
+      description: Faker::Lorem.paragraph(sentence_count: 1)[0],
+      password: 'azerty'
+  )
+
+  puts "#{i + 1}/10 utilisateurs créés"
 end
 
 10.times do |i|
-  User.create(password: "motdepasse", first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: "crazyeventbritemail0#{i}@yopmail.com", description: Faker::Lorem.paragraph_by_chars(number: 256, supplemental: true))
+  events << Event.create!(
+      # start_date: Faker::Date.between(from: Date.today, to: 1.year.from_now),
+      start_date: Time.parse('2020-08-12'),
+      duration: 5 * rand(1..100),
+      title: Faker::Name.name,
+      description: Faker::Lorem.paragraph(sentence_count: 10),
+      price: rand(1..999),
+      location: cities.sample,
+      author: User.last
+  )
+
+  puts "#{i + 1}/10 évènements créés"
 end
 
 10.times do |i|
-  added_days = rand(1..7)
-  start_date = Time.now + added_days.days
-  Event.create(start_date: start_date, duration: 30, title: Faker::Space.star, description: Faker::ChuckNorris.fact , location: Faker::Restaurant.name, price: rand(1..1000), admin: User.all.sample)
+  Participation.create!(
+      user: users.sample,
+      event: events.sample
+  )
+
+  puts "#{i + 1}/10 participations créés"
 end
