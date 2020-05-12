@@ -62,17 +62,6 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 
-  config.action_mailer.default_url_options = {:host => "localhost"}
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  ActionMailer::Base.smtp_settings = {
-    :user_name => ENV['SENDGRID_LOGIN'],
-    :password => ENV['SENDGRID_PWD'],
-    :domain => 'https://event75-bride-rails.herokuapp.com/',
-    :address => 'smtp.sendgrid.net',
-    :port => 587,
-    :authentication => :plain,
-    :enable_starttls_auto => true
-  }
+
 
 end
