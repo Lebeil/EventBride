@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :admin, class_name: 'User'
-  has_many :attendances
-  has_many :users, through: :attendances
+  has_many :participations
+  has_many :users, through: :participations
 
   validates :start_date, :duration, :title, :description, :price, :location, presence: true
   validates :title, length: {minimum: 5, maximum: 140}
