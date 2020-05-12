@@ -11,9 +11,7 @@ require 'faker'
 
 cities = %w[Paris Bordeaux Lyon Lisbonne Madrid Annecy]
 
-User.destroy_all
-Event.destroy_all
-Participation.destroy_all
+
 
 users = []
 events = []
