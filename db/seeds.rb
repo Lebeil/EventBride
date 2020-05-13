@@ -7,57 +7,38 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-# require 'faker'
-#
-# cities = %w[Paris Bordeaux Lyon Lisbonne Madrid Annecy]
-#
-#
-#
-# users = []
-# events = []
-#
-# # Create Default Admin User
-# users << User.create!(
-#     first_name: "John",
-#     last_name: "Doe",
-#     email: "juliobento2@yopmail.com",
-#     description: Faker::Lorem.paragraph(sentence_count: 1)[0],
-#     password: '1234567'
-# )
-# puts "Default Admin user has been created"
-#
-# 10.times do |i|
-#   users << User.create!(
-#       first_name: Faker::Name.first_name,
-#       last_name: Faker::Name.last_name,
-#       email: "#{Faker::Name.first_name}@yopmail.com",
-#       description: Faker::Lorem.paragraph(sentence_count: 1)[0],
-#       password: 'azerty'
-#   )
-#
-#   puts "#{i + 1}/10 utilisateurs créés"
-# end
-#
-# 10.times do |i|
-#   events << Event.create!(
-#       # start_date: Faker::Date.between(from: Date.today, to: 1.year.from_now),
-#       start_date: Time.parse('2020-08-12'),
-#       duration: 5 * rand(1..100),
-#       title: Faker::Name.name,
-#       description: Faker::Lorem.paragraph(sentence_count: 10),
-#       price: rand(1..999),
-#       location: cities.sample,
-#       author: User.last
-#   )
-#
-#   puts "#{i + 1}/10 évènements créés"
-# end
-#
-# 10.times do |i|
-#   Participation.create!(
-#       user: users.sample,
-#       event: events.sample
-#   )
-#
-#   puts "#{i + 1}/10 participations créés"
-# end
+require 'faker'
+
+10.times do
+  user = User.new(
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      description: Faker::Hipster.sentence,
+      password: "bonjour",
+      )
+  user.email = "#{user.first_name}.#{user.last_name}@yopmail.com"
+  user.save
+end
+puts "10 utilisateurs créés"
+
+5.times do
+  event = Event.create(
+      start_date: Faker::Time.forward(days: 100, format: :long),
+      duration: [15, 30, 45, 60, 90, 120, 150].sample,
+      title: Faker::Movies::HarryPotter.spell,
+      description: Faker::ChuckNorris.fact,
+      price: rand(40..200),
+      location: Faker::Nation.capital_city,
+      admin: User.all.sample,
+      )
+end
+puts "3 évènements créés"
+
+20.times do
+  participation = Participation.create(
+      event: Event.all.sample,
+      user: User.all.sample,
+      stripe_customer_id: Faker::Invoice.reference,
+      )
+end
+puts "15 présences confirmées"
