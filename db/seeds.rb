@@ -21,7 +21,7 @@ require 'faker'
 end
 puts "10 utilisateurs créés"
 
-5.times do
+6.times do
   event = Event.create(
       start_date: Faker::Time.forward(days: 100, format: :long),
       duration: [15, 30, 45, 60, 90, 120, 150].sample,
