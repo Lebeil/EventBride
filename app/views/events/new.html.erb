@@ -1,45 +1,102 @@
-<h1> Crée un évènement </h1>
+<div class="container">
+  <h2 class="mt-5">Enregistrer un nouvel évènement</h2>
 
-<%= form_with model: @event, local: true do |form| %>
-
-  <div class="container col-lg-6 col-md-3 col-sm-12">
-    <div class="form-group text-center ">
-
-      <div class="form-group">
-        <%= form.label :start_date, 'Date de début' %><br>
-        <%= form.date_field(:start_date) %>
+  <div>
+    <%= form_for(:events,  url:(events_path), method: :post) do |f| %>
+      <div class="field my-3">
+        <%= f.label "Titre" %><br />
+        <%= f.text_field :title, autofocus: true, placeholder: "mon évènement" %>
       </div>
 
-      <div class="form-group">
-        <%= form.label :duration, 'Durée' %><br>
-        <%= form.number_field(:duration, in: 0..120, step: 5) %>
+      <div class="field my-3">
+        <%= f.label "Lieu" %> <br />
+        <%= f.text_field :location, placeholder: "où" %>
       </div>
 
-      <div class="form-group">
-        <%= form.label :title, 'Titre' %><br>
-        <%= form.text_field :title, class: 'form-control' , required: true %>
+      <div class="field my-3">
+        <%= f.label "Date" %> <br />
+        <%= f.datetime_select :start_date %>
       </div>
 
-      <div class="form-group">
-        <%= form.label :description, 'Description' %><br>
-        <%= form.text_area :description, class: 'form-control' , required: true %>
+      <div class="field my-3">
+        <%= f.label "Durée" %> <br />
+        <%= f.text_field :duration, placeholder: "en min (incrément 5 mins)" %>
       </div>
 
-      <div class="form-group">
-        <%= form.label :price, 'Prix' %><br>
-        <%= form.number_field(:price, in: 1..1000) %>
+      <div class="field my-3">
+        <%= f.label "Description" %> <br />
+        <%= f.text_area :description, placeholder: :description %>
       </div>
 
-      <div class="form-group">
-        <%= form.label :location, 'Lieu' %><br>
-        <%= form.text_field :location, class: 'form-control' , required: true %>
+      <div class="field my-3">
+        <%= f.label "Prix des places" %> <br />
+        <%= f.text_field :price, placeholder: "entre 1 et 1000" %>
       </div>
 
-      <div class="form-group">
-        <%= form.submit 'Enregistrer', class: 'btn btn-success' %>
-      </div>
+      <%= f.hidden_field :admin_id, :value => current_user.id %>
 
-    </div>
+      <div class="actions">
+        <%= f.submit "Enregistrer" %>
+      </div>
+    <% end %>
   </div>
 
-<% end %>
+  <div class="mt-5">
+    <%= link_to "Retour", :back %>
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<!--<h1> Crée un évènement </h1>-->
+
+<%#= form model: @event, local: true do |form| %>
+
+<!--  <div class="container col-lg-6 col-md-3 col-sm-12">-->
+<!--    <div class="form-group text-center ">-->
+
+<!--      <div class="form-group">-->
+<!--        <%#= form.label :start_date, 'Date de début' %><br>-->
+        <%#= form.date_field(:start_date) %>
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <%#= form.label :duration, 'Durée' %><br>-->
+        <%#= form.number_field(:duration, in: 0..120, step: 5) %>
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <%#= form.label :title, 'Titre' %><br>-->
+        <%#= form.text_field :title, class: 'form-control' , required: true %>
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <%#= form.label :description, 'Description' %><br>-->
+        <%#= form.text_area :description, class: 'form-control' , required: true %>
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <%#= form.label :price, 'Prix' %><br>-->
+        <%#= form.number_field(:price, in: 1..1000) %>
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+<!--        <%#= form.label :location, 'Lieu' %><br>-->
+        <%#= form.text_field :location, class: 'form-control' , required: true %>
+<!--      </div>-->
+
+<!--      <div class="form-group">-->
+        <%#= form.submit 'Enregistrer', class: 'btn btn-success' %>
+<!--      </div>-->
+
+<!--    </div>-->
+<!--  </div>-->
+
+<%# end %>
