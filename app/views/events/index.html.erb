@@ -30,8 +30,9 @@
         <%= link_to "View details", event_path(event.id), class: "mb-1 btn btn-info" %>
         <div class="text-muted">
           <p>
-            Location :
-            Price :
+            Location : <%= event.location %>
+            <br>
+            Price : <%= event.price %> €
           </p>
         </div>
       </div>
