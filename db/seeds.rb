@@ -13,7 +13,7 @@ User.destroy_all
 Event.destroy_all
 Participation.destroy_all
 
-10.times do
+1.times do
   user = User.create!(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
@@ -21,7 +21,7 @@ Participation.destroy_all
       description: Faker::Superhero.descriptor,
       password: "testmdp")
 end
-puts "10 utilisateurs créés"
+puts "1 utilisateurs créés"
 
 6.times do
   event = Event.create!(
