@@ -13,7 +13,7 @@ User.destroy_all
 Event.destroy_all
 Participation.destroy_all
 
-1.times do
+6.times do
   user = User.create!(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
@@ -21,7 +21,7 @@ Participation.destroy_all
       description: Faker::Superhero.descriptor,
       password: "testmdp")
 end
-puts "1 utilisateurs créés"
+puts "6 utilisateurs créés"
 
 6.times do
   event = Event.create!(
@@ -36,11 +36,11 @@ puts "1 utilisateurs créés"
 end
 puts "6 évènements créés"
 
-20.times do
+10.times do
   participation = Participation.create!(
       event: Event.all.sample,
       user: User.all.sample,
       stripe_customer_id: Faker::Invoice.reference,
       )
 end
-puts "20 présences confirmées"
+puts "10 présences confirmées"
